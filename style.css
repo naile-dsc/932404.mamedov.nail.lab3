@@ -1,3 +1,7 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 :root {
     --primary-color: #c2410c;
     --accent-color: #ffffff;
@@ -14,7 +18,7 @@ body {
     background-color: var(--background-color);
     color: var(--text-color);
     margin: 0;
-    overflow-x: hidden; /* Исключаем горизонтальную прокрутку */
+    overflow-x: hidden;
 }
 
 header {
@@ -24,7 +28,6 @@ header {
     padding: 30px 20px;
 }
 
-/* Flexbox: Навигационное меню */
 .nav-menu {
     display: flex;
     justify-content: center;
@@ -45,10 +48,19 @@ header {
     transition: 0.3s;
 }
 
+.nav-menu a:visited {
+    color: #fed7aa;
+}
+
 .nav-menu a:hover, .nav-menu a:focus {
     border-color: var(--accent-color);
     background-color: rgba(255, 255, 255, 0.2);
     outline: none;
+}
+
+.nav-menu a:active {
+    background-color: rgba(255, 255, 255, 0.4);
+    transform: scale(0.98);
 }
 
 main {
@@ -57,7 +69,6 @@ main {
     padding: 0 20px;
 }
 
-/* Стили для изображения из ЛР2 */
 .profile-img {
     display: block;
     margin: 20px auto 40px;
@@ -91,7 +102,6 @@ li {
     margin-bottom: 10px;
 }
 
-/* Flexbox: Карточки идей (Десктоп: 4 в ряд) */
 .cards-container {
     display: flex;
     flex-wrap: wrap;
@@ -99,12 +109,11 @@ li {
 }
 
 .idea-card {
-    flex: 1 1 calc(25% - 20px);
+    flex: 1 1 calc((100% - 60px) / 4); 
     background-color: var(--background-color);
     padding: 15px;
     border: 1px solid var(--border-color);
     border-radius: 8px;
-    box-sizing: border-box;
 }
 
 .idea-card h3 {
@@ -112,11 +121,11 @@ li {
     color: var(--primary-color);
 }
 
-/* Grid: Дашборд с метриками (Десктоп: 3 колонки) */
 .dashboard-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+    width: 100%;
 }
 
 .metric-block {
@@ -125,6 +134,8 @@ li {
     border: 1px solid var(--border-color);
     border-radius: 8px;
     text-align: center;
+    box-sizing: border-box; 
+    min-width: 0;
 }
 
 .metric-block h3 {
@@ -132,7 +143,6 @@ li {
     color: var(--text-color);
 }
 
-/* Стилизация тега meter */
 meter {
     width: 100%;
     height: 25px;
@@ -146,15 +156,17 @@ meter {
     color: var(--primary-color);
 }
 
-/* Формы, кнопки и интерактив */
-input, textarea, button, a {
+input, textarea {
+    cursor: text; 
+}
+
+button, a {
     cursor: pointer;
 }
 
 input, textarea {
     display: block;
     width: 100%;
-    box-sizing: border-box;
     margin: 5px 0 15px;
     padding: 10px;
     border: 1px solid var(--border-color);
@@ -188,6 +200,11 @@ input:focus, textarea:focus {
     background-position: 100% 50%;
 }
 
+.submit-button:focus {
+    outline: 3px solid var(--accent-color);
+	box-shadow: 0 0 0 5px rgba(194, 65, 12, 0.45);
+}
+
 .submit-button:active {
     background-position: 40% 50%;
     transform: scale(0.98);
@@ -204,46 +221,36 @@ footer a {
     color: white;
 }
 
+footer a:visited {
+    color: #fed7aa;
+}
+
 footer a:hover, footer a:focus {
     color: #ffedd5;
     outline: 1px dotted white;
 }
 
-/* АДАПТИВНОСТЬ (Медиа-запросы) */
+footer a:active {
+    color: #ffffff;
+}
 
-/* Планшеты (до 768px) */
-@media (max-width: 768px) {
-    /* Flex-карточки: 2 в ряд */
+max-width: 768px {
     .idea-card {
-        flex: 1 1 calc(50% - 20px);
+        flex: 1 1 calc((100% - 20px) / 2);
     }
     
-    /* Grid: 2 колонки (одна ячейка перенесется вниз) */
     .dashboard-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-/* Мобильные устройства (до 480px) */
-@media (max-width: 480px) {
-    /* Flex-карточки: 1 в ряд */
+max-width: 480px {
     .idea-card {
         flex: 1 1 100%;
     }
     
-    /* Grid: 1 колонка */
     .dashboard-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 100%;
     }
-
-    .nav-menu {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .nav-menu a {
-        display: block;
-        width: 100%;
-        text-align: center;
-    }
+	
 }
